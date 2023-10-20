@@ -54,7 +54,7 @@ async function run() {
     
 
     app.get('/mycart/:name',async(req,res)=>{
-      const query=req.params.name
+      const query=req.params.name;
       console.log(query)
       const filter={name:query}
       const result=await mycartcollection.find(filter).toArray()
