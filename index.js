@@ -51,6 +51,7 @@ async function run() {
       const result=await mycartcollection.deleteOne(query)
       res.send(result)
     })
+    
 
     app.get('/mycart/:name',async(req,res)=>{
       const query=req.params.name
