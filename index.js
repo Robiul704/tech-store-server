@@ -29,11 +29,6 @@ async function run() {
     const bannercollection=client.db('productDB').collection('banner')
 
 
-    app.post('/product',async(req,res)=>{
-        const product=req.body
-        const result=await productcollection.insertOne(product)
-        res.send(result)
-    })
 
     app.get('/product',async(req,res)=>{
         const query=productcollection.find()
