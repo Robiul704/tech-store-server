@@ -27,8 +27,40 @@ async function run() {
     const productcollection=client.db('productDB').collection('product')
     const brandcollection=client.db('productDB').collection('Brand')
     const bannercollection=client.db('productDB').collection('banner')
+    const mycartcollection=client.db('productDB').collection('mycart')
+ 
 
+    app.post('/product',async(req,res)=>{
+        const product=req.body
+        const result=await productcollection.insertOne(product)
+        res.send(result)
+    })
+    app.post('/mycart',async(req,res)=>{
+      const product=req.body
+      const result=await mycartcollection.insertOne(product)
+      res.send(result)
+    })
+    app.get('/mycart',async(req,res)=>{
+      const finding=mycartcollection.find()
+      const result=await finding.toArray()
+      res.send(result)
+    })
+    
+    app.delete('/mycart/:id',async(req,res)=>{
+      const id=req.params.id
+      const query={_id:new ObjectId(id)}
+      const result=await mycartcollection.deleteOne(query)
+      res.send(result)
+    })
 
+    app.get('/mycart/:name',async(req,res)=>{
+      const query=req.params.name
+      console.log(query)
+      const filter={name:query}
+      const result=await mycartcollection.find(filter).toArray()
+      res.send(result)
+    })
+    
 
     app.get('/product',async(req,res)=>{
         const query=productcollection.find()
